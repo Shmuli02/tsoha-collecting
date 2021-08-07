@@ -1,1 +1,19 @@
 <h1>Kaikki kolikot</h1>
+
+
+<h1>Uuden kolikon lisääminen</h1>
+
+<form action="/new_coin" method="POST">
+  Maa: <select name="country">
+    {% for country in countries %}
+    <option value={{country}}>{{country}}</option>
+    {% endfor %}
+  </select><br>
+  Vuosi: <input type="text" name="year" /><br>
+  Valuutta: <input type="text" name="currency" /><br>
+  arvo: <input type="text" name="value" /><br>
+  Kolikon nimi: <input type="text" name="name" /><br>
+  Kuvaus: <input type="text" name="description" /><br>
+  materiaali: <input type="text" name="material" />
+  <input type="submit" value="Lisää" />
+</form>
