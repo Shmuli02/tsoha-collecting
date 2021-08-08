@@ -42,8 +42,10 @@ def login():
   if request.method == "POST":
     username = request.form["username"]
     password = request.form["password"]
-    users.login(username,password)
-    return redirect("/")
+    if users.login(username,password):
+      return redirect("/")
+    else:
+      return render_template("login.html")
 
 @app.route("/logout")
 def logout():
@@ -57,5 +59,8 @@ def register():
   if request.method == "POST":
     username = request.form["username"]
     password = request.form["password"]
-    users.register(username,password)
-    return redirect("/login")
+    password2 = request.form["password2"]
+    if users.register(username,password,password2):
+      return redirect("/login")
+    else:
+      return render_template("register.html")
