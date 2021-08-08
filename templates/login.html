@@ -4,10 +4,13 @@
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <form action="/login" method="POST">
-  <p>Käyttäjä tunnus:</p>
+  <p>Käyttäjätunnus:</p>
   <input type="text" name="username">
   <p>Salasana:</p>
   <input type="password" name="password">
   <input type="submit" value="Kirjaudu">
 </form>
 {% endif %}
+<br>
+<p>Ei vieä käyttäjätunnusta?</p>
+<a href="/register">Rekistöröidy</a>
