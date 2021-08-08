@@ -10,6 +10,8 @@ CREATE TABLE coin_data (
   public BOOLEAN
 );
 
+CREATE TABLE users (id SERIAL PRIMARY KEY, username TEXT, password TEXT);
+
 CREATE TABLE coin_library (
   id SERIAL PRIMARY KEY,
   name TEXT,
@@ -24,13 +26,7 @@ CREATE TABLE user_coin_own (
 CREATE TABLE user_coin_wishlist (
   id SERIAL PRIMARY KEY,
   coin_id INTEGER REFERENCES coin_data,
-  user_id INTEGER REFERENCES user
-);
-
-CREATE TABLE user (
-  id SERIAL PRIMARY KEY,
-  username TEXT UNIQUE,
-  password TEXT
+  user_id INTEGER REFERENCES users
 );
 
 CREATE TABLE country (
@@ -69,4 +65,3 @@ INSERT INTO material (material) VALUES ('Gold'),('Silver'),('Copper–Nickel (Cu
 ('Nickel'),('Nickel, bronze plating'),('Bronze'),('Copper'),
 ('Bimetal: silver, titanium'),('Brass'),('Palladium'),('Platinum')
 
-CREATE TABLE users (id SERIAL PRIMARY KEY, username TEXT, password TEXT);
