@@ -68,3 +68,5 @@ INSERT INTO material (material) VALUES ('Gold'),('Silver'),('Copper–Nickel (Cu
 ('Bimetal: silver, nordic gold'),('Bimetal: silver, niobium'),
 ('Nickel'),('Nickel, bronze plating'),('Bronze'),('Copper'),
 ('Bimetal: silver, titanium'),('Brass'),('Palladium'),('Platinum')
+
+CREATE TABLE users (id SERIAL PRIMARY KEY, username TEXT, password TEXT);
