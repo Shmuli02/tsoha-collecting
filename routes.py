@@ -1,7 +1,7 @@
 from app import app
 
-from flask import render_template, request, redirect, session
-from db import db
+from flask import render_template, request, redirect
+import messages
 
 
 @app.route("/")
@@ -14,7 +14,8 @@ def admin_index():
 
 @app.route("/admin/coin")
 def admin_coin():
-  return render_template("admin_coin.html", countries=["maa1","maa2"])
+  countries = messages.get_countries()
+  return render_template("admin_coin.html", countries=countries)
 
 @app.route("/admin/coin/<int:id>")
 def admin_coin_id(id):
@@ -22,12 +23,14 @@ def admin_coin_id(id):
 
 @app.route("/new_coin", methods=["POST"])
 def new_coin():
-  country = request.form["country"]
+  # country = request.form["country"]
+  country = 1
   year = request.form["year"]
   currency = request.form["currency"]
   value = request.form["value"]
   name = request.form["name"]
   description = request.form["description"]
   material = request.form["material"]
-  print(country)
+  public = True
+  messages.add_new_coin(name,description,country,value,currency,material)
   return redirect("/admin/coin")
