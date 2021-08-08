@@ -1,7 +1,7 @@
 from app import app
 
-from flask import render_template, request, redirect
-import messages
+from flask import render_template, request, redirect, session
+import messages, users
 
 
 @app.route("/")
@@ -34,3 +34,28 @@ def new_coin():
   public = True
   messages.add_new_coin(name,description,country,value,currency,material)
   return redirect("/admin/coin")
+
+@app.route("/login",methods=["POST","GET"])
+def login():
+  if request.method == "GET":
+    return render_template("login.html")
+  if request.method == "POST":
+    username = request.form["username"]
+    password = request.form["password"]
+    users.login(username,password)
+    return redirect("/")
+
+@app.route("/logout")
+def logout():
+  del session["username"]
+  return redirect("/")
+
+@app.route("/register", methods=["POST","GET"])
+def register():
+  if request.method == "GET":
+    return render_template("register.html")
+  if request.method == "POST":
+    username = request.form["username"]
+    password = request.form["password"]
+    users.register(username,password)
+    return redirect("/login")
