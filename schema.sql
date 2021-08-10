@@ -10,7 +10,11 @@ CREATE TABLE coin_data (
   public BOOLEAN
 );
 
-CREATE TABLE users (id SERIAL PRIMARY KEY, username TEXT, password TEXT);
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username TEXT,
+  password TEXT.
+  admin INTEGER);
 
 CREATE TABLE coin_library (
   id SERIAL PRIMARY KEY,
