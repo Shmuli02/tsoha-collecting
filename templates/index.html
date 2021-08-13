@@ -1,7 +1,7 @@
-<h1>Etusivu</h1>
+{% extends "main-layout.html" %}
+{% block content %}
+<h2>Etusivu</h2>
 {% if session.username %}
 <p>{{ session.username }} kirjautunut sisään</p>
-<a href="/logout">Kirjaudu ulos</a>
-{% else %}
-<a href="/login">Kirjaudu sisään</a>
 {% endif %}
+{% endblock %}
