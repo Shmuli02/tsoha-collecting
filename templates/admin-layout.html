@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+</style>
+</head>
+<body>
+
+<ul>
+  <li><a class="active" href="/">Home</a></li>
+  <li><a href="#Kolikot">Kolikot</a></li>
+  <li><a href="#Kokoelmat">Kokoelmat</a></li>
+  {% if session.username %}
+  <li><a href="/logout">Kirjaudu ulos</a></li>
+  {% else %}
+  <li><a href="/login">Kirjaudu sisään</a></li>
+  {% endif %}
+  {% if session.admin %}
+  <li style="float:right"><a href="/">Takaisin pääsivulle</a></li>
+  {% endif %}
+</ul>
+{% block content %}{% endblock %}
+</body>
