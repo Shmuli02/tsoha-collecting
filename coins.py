@@ -71,3 +71,29 @@ def get_coin_by_id(id):
     return False
   else:
     return coin[0]
+
+def get_users_coins(user_id):
+  pass
+
+
+def add_new_collection(name,description,public,collection_coins,author):
+  sql = """
+    INSERT INTO
+      coin_collection (name,description,public,coins,author_id)
+    VALUES
+      (:name,:description,:public,:collection_coins,:author)
+  """
+  db.session.execute(sql,{"name":name,"description":description,"public":public,"collection_coins":str(collection_coins),"author":author})
+  db.session.commit()
+  return
+
+def get_all_collections():
+  sql = """
+    SELECT
+      c.id,c.name,c.description,c.public,c.coins,c.author_id
+    FROM
+      coin_collection as c
+  """
+  result = db.session.execute(sql)
+  collection_list = [{'id':col1,'name':col2,'description':col3,'public':col4,'coins':col5,'author_id':col6} for (col1,col2,col3,col4,col5,col6) in result.fetchall()]
+  return collection_list
