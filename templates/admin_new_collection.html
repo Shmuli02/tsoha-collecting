@@ -1,0 +1,52 @@
+{% extends "admin-layout.html" %}
+{% block content %}
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  </style>
+<br>
+<form action="/new_collection" method="POST" enctype=multipart/form-data>
+  Nimi: <input type="text" name="name" /><br>
+  Kuvaus: <input type="text" name="description" /><br>
+  Julkinen: <select name="public">
+    <option value="True">True</option>
+    <option value="False">False</option>
+  </select>
+  <br>
+  Valitse kolikot:
+  <table>
+    <tr>
+      <th>Valitse</th>
+      <th>Nimi</th>
+      <th>Arvo</th>
+      <th>Maa</th>
+    </tr>
+    {% for coin in all_coins %}
+    <tr>
+      <td>
+        <input type="checkbox" id={{coin.id}} name="coin-to-collection" value={{coin.id}}>
+      </td>
+      <td>{{coin.name}}</td>
+      <td>{{coin.value}} {{coin.currency}}</td>
+      <td>{{coin.country}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br>
+  Kuva: <input type=file name=file>
+  <input type="submit" value="lisää" />
+</form>
+{% endblock %}
