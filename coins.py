@@ -30,6 +30,22 @@ def get_currencies():
   result_list = [{'id':item[0],'currency':item[1]} for item in result.fetchall()]
   return result_list
 
+
+def add_new_coin(name,description,country,value,currency,material,public,img_url):
+  if img_url == "":
+    img_url = "/static/img/no-image-available.jpg"
+  sql = """
+    INSERT INTO 
+      coin_data (name,description,country_id,value,currency_id,material_id,public,image_url) 
+    VALUES 
+      (:name,:description,:country_id,:value,:currency_id,:material_id,:public,:image_url)
+    """
+  db.session.execute(sql,{"name":name,"description":description,"country_id":country,"value":value,"currency_id":currency,"material_id":material,"public":public,"image_url":img_url})
+  db.session.commit()
+  return
+
+
+
 def get_all_coins():
   sql = """
     SELECT 
