@@ -1,0 +1,39 @@
+{% extends "admin-layout.html" %}
+{% block content %}
+<br>
+<form action="/new_coin" method="POST" enctype=multipart/form-data>
+  Maa: <select name="country">
+    {% for country in countries %}
+    <option value={{country.id}}>{{country.country}}</option>
+    {% endfor %}
+  </select><br>
+  Vuosi: <select id="year" name="year">
+    <option>Vuosi</option>
+    <option value="1940">1940</option>
+    {% for vuosi in range(1940,2031) %}
+    <option value={{vuosi}}>{{vuosi}}</option>
+    {% endfor %}
+</select><br>
+  Valuutta: <select name="currency">
+    {% for currency in currencies %}
+
+    <option value={{currency.id}}>{{currency.currency}}</option>
+    {% endfor %}
+  </select><br>
+  arvo: <input type="text" name="value" /><br>
+  Kolikon nimi: <input type="text" name="name" /><br>
+  Kuvaus: <input type="text" name="description" /><br>
+  materiaali: <select name="material">
+    {% for material in materials %}
+    <option value={{material.id}}>{{material.material}}</option>
+    {% endfor %}
+  </select><br>
+  Julkinen: <select name="public">
+    <option value="True">True</option>
+    <option value="False">False</option>
+  </select>
+  <br>
+  Kuva: <input type=file name=file>
+  <input type="submit" value="lisää" />
+</form>
+{% endblock %}
