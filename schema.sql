@@ -14,7 +14,7 @@ CREATE TABLE coin_data (
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username TEXT,
-  password TEXT.
+  password TEXT,
   admin INTEGER);
 
 CREATE TABLE coin_collection (
@@ -86,3 +86,4 @@ INSERT INTO material (material) VALUES ('Gold'),('Silver'),('Copper–Nickel (Cu
 ('Nickel'),('Nickel, bronze plating'),('Bronze'),('Copper'),
 ('Bimetal: silver, titanium'),('Brass'),('Palladium'),('Platinum')
 
+INSERT INTO currency (currency) VALUES ('Euro')
