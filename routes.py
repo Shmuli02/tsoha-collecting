@@ -64,26 +64,30 @@ def new_coin():
     return render_template("admin_new_coin.html",countries=countries,materials=materials,currencies=currencies,all_coins=all_coins)
   if request.method == "POST":
     img_url = ''
-    if 'file' not in request.files:
-      pass
-    file = request.files['file']
-    if file.filename == '':
-      pass
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        img_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(img_url)
-        img_url = img_url[1:] #remove the dot from the link
-    # country = request.form["country"]
+    ### Kuvien tallennus toimii paikallisesti, mutta ei herokussa. Joten syötteenä linkki kuvaan ###
+
+    
+    # if 'file' not in request.files:
+    #   pass
+    # file = request.files['file']
+    # if file.filename == '':
+    #   pass
+    # if file and allowed_file(file.filename):
+        # filename = secure_filename(file.filename)
+        # img_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        # file.save(img_url)
+        # img_url = img_url[1:] #remove the dot from the link
+    img_url = request.form["image_url"]
     country = request.form["country"]
     year = request.form["year"]
+    mintage = request.form["mintage"]
     currency = request.form["currency"]
     value = request.form["value"]
     name = request.form["name"]
     description = request.form["description"]
     material = request.form["material"]
     public = request.form["public"]
-    coins.add_new_coin(name,description,country,value,currency,material,public,img_url)
+    coins.add_new_coin(name,description,country,value,currency,material,public,img_url,mintage,year)
     return redirect("/admin/coin")
 
 @app.route("/new_collection", methods=["POST","GET"])
