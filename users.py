@@ -21,16 +21,19 @@ def login(username,password):
 
 def register(username, password,password2):
   if password == password2:
-    hash_value = generate_password_hash(password)
-    sql = """
-      INSERT INTO 
-        users (username,password,admin) 
-      VALUES 
-        (:username,:password,0)
-      """
-    db.session.execute(sql,{"username":username,"password":hash_value})
-    db.session.commit()
-    return True
+    if username != '' and password != '':
+      hash_value = generate_password_hash(password)
+      sql = """
+        INSERT INTO 
+          users (username,password,admin) 
+        VALUES 
+          (:username,:password,0)
+        """
+      db.session.execute(sql,{"username":username,"password":hash_value})
+      db.session.commit()
+      return True
+    else:
+      return False
   else:
     return False
 
