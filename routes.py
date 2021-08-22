@@ -14,25 +14,6 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# @app.route('/lataa', methods=['GET', 'POST'])
-# def upload_file():
-#     if request.method == 'POST':
-#         # check if the post request has the file part
-#         if 'file' not in request.files:
-#             flash('No file part')
-#             return redirect(request.url)
-#         file = request.files['file']
-#         # If the user does not select a file, the browser submits an
-#         # empty file without a filename.
-#         if file.filename == '':
-#             flash('No selected file')
-#             return redirect(request.url)
-#         if file and allowed_file(file.filename):
-#             filename = secure_filename(file.filename)
-#             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-#             return redirect(request.url)
-#     return render_template('/upload.html')
-
 @app.route("/")
 def index():
   return render_template("index.html")
@@ -43,11 +24,18 @@ def admin_index():
 
 @app.route("/admin/coin")
 def admin_coin():
-  countries = coins.get_countries()
-  materials = coins.get_materials()
-  currencies = coins.get_currencies()
   all_coins = coins.get_all_coins()
-  return render_template("admin_coin.html", countries=countries,materials=materials,currencies=currencies,all_coins=all_coins)
+  return render_template("admin_coin.html", all_coins=all_coins)
+
+@app.route("/admin/collection")
+def admin_collection():
+  all_collections = coins.get_all_collections()
+  return render_template("admin_collection.html",all_collections=all_collections)
+
+@app.route("/coin")
+def coin():
+  all_coins = coins.get_all_coins()
+  return render_template("coins.html", all_coins=all_coins)
 
 @app.route("/coin/<int:id>")
 def admin_coin_id(id):
@@ -58,6 +46,14 @@ def admin_coin_id(id):
   else:
     return render_template("coin_id.html",coin=coin)
 
+@app.route("/admin/collection/<int:id>")
+def admin_collection_id(id):
+  collection = coins.get_collection_by_id(id)
+  if collection is False:
+    return redirect('/')
+  else:
+    return render_template("admin_collection_id.html",collection=collection)
+
 @app.route("/new_coin", methods=["POST","GET"])
 def new_coin():
   if request.method == "GET":
@@ -67,19 +63,17 @@ def new_coin():
     all_coins = coins.get_all_coins()
     return render_template("admin_new_coin.html",countries=countries,materials=materials,currencies=currencies,all_coins=all_coins)
   if request.method == "POST":
-    img_link = ''
+    img_url = ''
     if 'file' not in request.files:
       pass
     file = request.files['file']
-    # If the user does not select a file, the browser submits an
-    # empty file without a filename.
     if file.filename == '':
       pass
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        img_link = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(img_link)
-        img_link = img_link[1:] #remove the dot from the link
+        img_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(img_url)
+        img_url = img_url[1:] #remove the dot from the link
     # country = request.form["country"]
     country = request.form["country"]
     year = request.form["year"]
@@ -89,8 +83,25 @@ def new_coin():
     description = request.form["description"]
     material = request.form["material"]
     public = request.form["public"]
-    coins.add_new_coin(name,description,country,value,currency,material,public)
+    coins.add_new_coin(name,description,country,value,currency,material,public,img_url)
     return redirect("/admin/coin")
+
+@app.route("/new_collection", methods=["POST","GET"])
+def new_collection():
+  if request.method == "GET":
+    all_coins = coins.get_all_coins()
+    return render_template("admin_new_collection.html", all_coins=all_coins)
+  if request.method == "POST":
+    if 'coin-to-collection' in request.form:
+      collection_coins = request.form.to_dict(flat=False)['coin-to-collection']
+    else:
+      collection_coins = []
+    name = request.form["name"]
+    description = request.form["description"]
+    public = request.form["public"]
+    author = users.get_userid_by_username(session["username"])
+    coins.add_new_collection(name,description,public,collection_coins,author)
+    return redirect("/new_collection")
 
 @app.route("/login",methods=["POST","GET"])
 def login():
