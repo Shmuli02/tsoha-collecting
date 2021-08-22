@@ -24,7 +24,7 @@
   clear: both;
 }
 
-.card button {
+/* .card button {
   border: none;
   outline: 0;
   padding: 8px;
@@ -34,26 +34,33 @@
   cursor: pointer;
   width: 100%;
   font-size: 18px;
-}
+} */
 
-.card button:hover {
+/* .card button:hover {
   opacity: 0.7;
-}
+} */
 div {
   display: table;
 }
+
 </style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <h1>Kaikki kolikot</h1>
 <div class="table">
 {% for coin in all_coins %}
 
 <div class="card">
-  <img src="/static/img/risuraha.jpg" alt={{coin.id}} style="width:100%">
+  <img src={{coin.image_url}} alt={{coin.id}} style="width:100%">
   <h1>{{ coin.name }}</h1>
   <p>{{ coin.value }} {{ coin.currency }}</p>
   <p>Jotain</p>
   <p><a href="/coin/{{coin.id}}">Lue lisää</a></p>
+  {% if session.username %}
+  <button class="w3-button w3-xlarge w3-circle w3-teal" style="float: right;">+</button>
+  {% endif %}
 </div>
 
 {% endfor %}
 </div>
+{% block user_content %}{% endblock %}

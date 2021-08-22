@@ -34,10 +34,11 @@ li a:hover:not(.active) {
 
 <ul>
   <li><a class="active" href="/">Home</a></li>
-  <li><a href="#Kolikot">Kolikot</a></li>
+  <li><a href="/coin">Kolikot</a></li>
   <li><a href="#Kokoelmat">Kokoelmat</a></li>
-  <li><a href="#Omat-tiedot">Omat tiedot</a></li>
   {% if session.username %}
+  <li><a href="#Omat-tiedot">Omat tiedot</a></li>
+  
   <li><a href="/logout">Kirjaudu ulos</a></li>
   {% else %}
   <li><a href="/login">Kirjaudu sisään</a></li>
