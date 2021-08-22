@@ -34,3 +34,34 @@ Tehtävät asiat seuraavaan välipalautukseen:
 - Tiedon visaallisointi
 - kokoelmien tekeminen
 - Toivelistan tekeminen
+
+## Välipalautus 3
+Heroku linkki:
+https://tsoha-collecting.herokuapp.com/
+
+Käyttöohjeet:
+
+Käyttäjä:
+- Luo uusi käyttäjä
+- Kirjaudu sisään
+- Kolikot välilehdeltä näet kaikki kolikot
+- Kolikot välilehdeltä voit listä kolikoita plus painikkeesta omaan kokoelmaasi (toteutus kesken)
+- Kokoelmat välilehdellä näet erilaisia kokoelmia (toteuus kesken)
+
+Ylläpitäjä:
+- Kirjaudu valmiilla ylläpitäjä käyttäjällä (**username**: admin,**password**: admin)
+- Siirry hallintasivulle oikeassa yläkulmassa olevasta painikkeesta
+- Voit luoda uuden kolikon Lisää/Kolikko kohdasta
+- Voit luoda uuden kokoelmam Lisää/kokoelma kohdasta
+- Kolikot välilehdellä näet kaikki kolikot
+- Jokaisesta kolikosta saat lisätietoja painamalla kolikon kohdasta 'Lue lisää'
+- Kokoelmat väliehdellä näet kaikki kokoelmat ja saat lisätietoja painamalla 'Lue lisää'
+- Voit palata pääsivulle 'normaaliksi käyttäjäksi' oikeassa yläkulmassa olevasta painikkeesta.
+
+
+Kaikki ominaiseedet eivät kerenneet 3. välipalautukseen.
+Muutama ominaisuus on vielä kesken/ei toimi herokussa, mutta ne tehdään asap viikon 34 alussa.
+
+Seuraavaksi toteutettavat toiminnot:
+- Ulkoasun paranamista
+- Mahdollisuus muokata tietoja
