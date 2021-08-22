@@ -26,9 +26,11 @@ CREATE TABLE coin_collection (
   author_id INTEGER REFERENCES users
 );
 
-CREATE TABLE user_coin_own (
-  id SERIAL PRIMARY KEY
-
+CREATE TABLE user_user_own (
+  id SERIAL PRIMARY KEY,
+  coin_id INTEGER REFERENCES coin_data,
+  amount INTEGER,
+  user_id INTEGER REFERENCES users
 );
 
 CREATE TABLE user_coin_wishlist (
@@ -52,18 +54,29 @@ CREATE TABLE material (
   material TEXT
 )
 
-INSERT INTO country (country) VALUES ('Andorra'),('Argentina'),('Austria'),('Belarus'),
-('Belgium'),('Bulgaria'),('Canada'),('Croatia'),('Cuba'),
-('Cyprus'),('Czech Republic'),('Denmark'),('Ecuador'),
-('Estonia'),('Finland'),('France'),('Germany'),('Greece'),
-('Guatemala'),('Hungary'),('Ireland'),('Isle of Man'),
-('Italy'),('Japan'),('Kazakhstan'),('Latvia'),('Lithuania'),
-('Luxembourg'),('Macedonia'),('Malta'),('Mexico'),('Moldova'),
-('Monaco'),('Netherlands'),('Nicaragua'),('Norway'),('Paraguay'),
-('Peru'),('Poland'),('Portugal'),('Romania'),('Russia'),
-('San Marino'),('Serbia'),('Slovakia'),('Slovenia'),('South Korea'),
-('Spain'),('Sweden'),('Switzerland'),('Turkey'),('Ukraine'),
-('United Kingdom'),('USA'),('Vatican City')
+-- INSERT INTO country (country) VALUES ('Andorra'),('Argentina'),('Austria'),('Belarus'),
+-- ('Belgium'),('Bulgaria'),('Canada'),('Croatia'),('Cuba'),
+-- ('Cyprus'),('Czech Republic'),('Denmark'),('Ecuador'),
+-- ('Estonia'),('Finland'),('France'),('Germany'),('Greece'),
+-- ('Guatemala'),('Hungary'),('Ireland'),('Isle of Man'),
+-- ('Italy'),('Japan'),('Kazakhstan'),('Latvia'),('Lithuania'),
+-- ('Luxembourg'),('Macedonia'),('Malta'),('Mexico'),('Moldova'),
+-- ('Monaco'),('Netherlands'),('Nicaragua'),('Norway'),('Paraguay'),
+-- ('Peru'),('Poland'),('Portugal'),('Romania'),('Russia'),
+-- ('San Marino'),('Serbia'),('Slovakia'),('Slovenia'),('South Korea'),
+-- ('Spain'),('Sweden'),('Switzerland'),('Turkey'),('Ukraine'),
+-- ('United Kingdom'),('USA'),('Vatican City')
+
+INSERT INTO country (country) VALUES ('Alankomaat'),('Albania'),('Andorra'),
+('Armenia'),('Azerbaidžan'),('Belgia'),('Bulgaria'),('Espanja'),('Georgia'),
+('Irlanti'),('Islanti'),('Israel'),('Italia'),('Itävalta'),('Kreikka'),
+('Kroatia'),('Kypros'),('Latvia'),('Liettua'),('Luxemburg'),('Malta'),
+('Moldova'),('Monaco'),('Montenegro'),('Norja'),('Pohjois-Makedonia'),
+('Portugali'),('Puola'),('Ranska'),('Romania'),('Ruotsi'),('Saksa'),
+('San Marino'),('Serbia'),('Slovakia'),('Slovenia'),('Suomi'),('Sveitsi'),
+('Tanska'),('Tšekki'),('Turkki'),('Ukraina'),('Unkari'),('Valko-Venäjä'),
+('Vatikaani'),('Venäjä'),('Viro'),('Yhdistynyt kuningaskunta')
+
 
 INSERT INTO material (material) VALUES ('Gold'),('Silver'),('Copper–Nickel (CuNi)'),
 ('Nordic gold (CuZnAl)'),('German silver (CuNiZn)'),
