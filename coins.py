@@ -21,16 +21,16 @@ def get_currencies():
   return result_list
 
 
-def add_new_coin(name,description,country,value,currency,material,public,img_url):
+def add_new_coin(name,description,country,value,currency,material,public,img_url,mintage,year):
   if img_url == "":
     img_url = "/static/img/no-image-available.jpg"
   sql = """
     INSERT INTO 
-      coin_data (name,description,country_id,value,currency_id,material_id,public,image_url) 
+      coin_data (name,description,country_id,value,currency_id,material_id,mintage,year,public,image_url) 
     VALUES 
-      (:name,:description,:country_id,:value,:currency_id,:material_id,:public,:image_url)
+      (:name,:description,:country_id,:value,:currency_id,:material_id,:mintage,:year,:public,:image_url)
     """
-  db.session.execute(sql,{"name":name,"description":description,"country_id":country,"value":value,"currency_id":currency,"material_id":material,"public":public,"image_url":img_url})
+  db.session.execute(sql,{"name":name,"description":description,"country_id":country,"value":value,"currency_id":currency,"material_id":material,"mintage":mintage,"year":year,"public":public,"image_url":img_url})
   db.session.commit()
   return
 
@@ -39,7 +39,7 @@ def add_new_coin(name,description,country,value,currency,material,public,img_url
 def get_all_coins():
   sql = """
     SELECT 
-      coin.id,coin.name,coin.description,country.country,coin.value,currency.currency,material.material,coin.image_url
+      coin.id,coin.name,coin.description,country.country,coin.value,currency.currency,material.material,coin.image_url,coin.mintage,coin.year
     FROM 
       coin_data AS coin
     INNER JOIN 
@@ -50,7 +50,7 @@ def get_all_coins():
       currency ON coin.currency_id = currency.id
     """
   result = db.session.execute(sql)
-  coin_list = [{'id':col1,'name':col2,'description':col3,'country':col4,'value':col5,'currency':col6,'material':col7,'image_url':col8} for (col1,col2,col3,col4,col5,col6,col7,col8) in result.fetchall()]
+  coin_list = [{'id':col1,'name':col2,'description':col3,'country':col4,'value':col5,'currency':col6,'material':col7,'image_url':col8,'mintage':col9,'year':col10} for (col1,col2,col3,col4,col5,col6,col7,col8,col9,col10) in result.fetchall()]
   
   return coin_list
 
