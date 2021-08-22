@@ -49,8 +49,10 @@
 <button class="collapsible">Ominaisuudet</button>
 <div class="content">
   <ul>
+    <li>Vuosi: {% if coin.year %} {{coin.year}} {% else %} - {% endif %}</li><br>
     <li>Materiaali: {% if coin.material %} {{coin.material}} {% else %} - {% endif %}</li><br>
-    <li>Paino: {% if coin.weight %} {{coin.weight}} {% else %} - {% endif %} </li>
+    <li>Paino: {% if coin.weight %} {{coin.weight}} {% else %} - {% endif %} </li><br>
+    <li>Lyöntimäärä: {% if coin.mintage %} {{coin.mintage}} {% else %} - {% endif %} </li><br>
   </ul>
 </div>
 

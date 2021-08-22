@@ -27,12 +27,15 @@
     <option value={{material.id}}>{{material.material}}</option>
     {% endfor %}
   </select><br>
+  Lyöntimäärä: <input type="number" name="mintage"/><br>
   Julkinen: <select name="public">
     <option value="True">True</option>
     <option value="False">False</option>
   </select>
-  <br>
-  Kuva: <input type=file name=file>
+  <br> 
+  <!-- Kuvien tallennus toimii paikallisesti, mutta ei herokussa. Joten tällä hetkellä syötteenä linkki kuvaan -->
+  <!-- Kuva: <input type=file name=file> -->
+  Kuvan linkki: <input type="text" name="image_url"/>
   <input type="submit" value="lisää" />
 </form>
 {% endblock %}
