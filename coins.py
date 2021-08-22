@@ -97,3 +97,15 @@ def get_all_collections():
   result = db.session.execute(sql)
   collection_list = [{'id':col1,'name':col2,'description':col3,'public':col4,'coins':col5,'author_id':col6} for (col1,col2,col3,col4,col5,col6) in result.fetchall()]
   return collection_list
+
+def get_collection_by_id(id):
+  all_collections = get_all_collections()
+  collection = list(filter(lambda x: x['id'] == id, all_collections))
+  if len(collection) == 0:
+    return False
+  else:
+    coins = ast.literal_eval(collection[0]['coins'])
+    coins_int = [int(x) for x in coins]
+    coins_list = [get_coin_by_id(id) for id in coins_int]
+    collection[0]['coins'] = coins_list
+    return collection[0]
