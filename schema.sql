@@ -41,7 +41,8 @@ CREATE TABLE coin_data (
   value INTEGER,
   currency_id INTEGER REFERENCES currency,
   material_id INTEGER REFERENCES material,
-  mintage_amount INTEGER DEFAULT NULL,
+  mintage INTEGER DEFAULT NULL,
+  year INTEGER,
   public BOOLEAN,
   image_url TEXT
 );
