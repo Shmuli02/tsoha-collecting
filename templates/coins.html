@@ -1,0 +1,9 @@
+{% extends "main-layout.html" %}
+{% block content %}
+{% include "coin_table.html" %}
+{% block user_content %}
+{% if session.username %}
+<h2>Omat kolikot</h2>
+{% endif %}
+{% endblock %}
+{% endblock %}
