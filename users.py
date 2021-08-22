@@ -33,3 +33,9 @@ def register(username, password,password2):
     return True
   else:
     return False
+
+def get_userid_by_username(username):
+  sql = "SELECT id, username FROM users WHERE username=:username"
+  result = db.session.execute(sql,{"username":username})
+  user = result.fetchall()
+  return user[0][0]
