@@ -1,22 +1,12 @@
 from db import db
 from flask import session
+import ast
 
 def get_countries():
   sql = "SELECT id,country FROM country"
   result = db.session.execute(sql)
   result_list = [{'id':item[0],'country':item[1]} for item in result.fetchall()]
   return result_list
-
-def add_new_coin(name,description,country,value,currency,material,public):
-  sql = """
-    INSERT INTO 
-      coin_data (name,description,country,value,currency,material) 
-    VALUES 
-      (:name,:description,:country,:value,:currency,:material)
-    """
-  db.session.execute(sql,{"name":name,"description":description,"country":country,"value":value,"currency":currency,"material":material})
-  db.session.commit()
-  return
 
 def get_materials():
   sql = "SELECT id,material FROM material"
@@ -49,18 +39,18 @@ def add_new_coin(name,description,country,value,currency,material,public,img_url
 def get_all_coins():
   sql = """
     SELECT 
-      coin.id,coin.name,coin.description,country.country,coin.value,currency.currency,material.material
+      coin.id,coin.name,coin.description,country.country,coin.value,currency.currency,material.material,coin.image_url
     FROM 
       coin_data AS coin
     INNER JOIN 
-      country ON coin.country = country.id
+      country ON coin.country_id = country.id
     INNER JOIN
-      material ON coin.material = material.id
+      material ON coin.material_id = material.id
     INNER JOIN
-      currency ON coin.currency = currency.id
+      currency ON coin.currency_id = currency.id
     """
   result = db.session.execute(sql)
-  coin_list = [{'id':col1,'name':col2,'description':col3,'country':col4,'value':col5,'currency':col6,'material':col7} for (col1,col2,col3,col4,col5,col6,col7) in result.fetchall()]
+  coin_list = [{'id':col1,'name':col2,'description':col3,'country':col4,'value':col5,'currency':col6,'material':col7,'image_url':col8} for (col1,col2,col3,col4,col5,col6,col7,col8) in result.fetchall()]
   
   return coin_list
 
