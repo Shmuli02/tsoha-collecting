@@ -60,7 +60,6 @@ Ylläpitäjä:
 
 
 Kaikki ominaiseedet eivät kerenneet 3. välipalautukseen.
-Muutama ominaisuus on vielä kesken/ei toimi herokussa, mutta ne tehdään asap viikon 34 alussa.
 
 Seuraavaksi toteutettavat toiminnot:
 - Ulkoasun paranamista
