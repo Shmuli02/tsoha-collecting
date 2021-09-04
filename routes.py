@@ -280,3 +280,7 @@ def register():
       return redirect("/login")
     else:
       return render_template("register.html")
+
+@app.errorhandler(404)
+def page_not_found(e):
+  return render_template("404.html")

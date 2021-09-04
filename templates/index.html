@@ -1,6 +1,7 @@
 {% extends "main-layout.html" %}
 {% block title %}Etusivu{% endblock %}
 {% block content %}
+{% include "error.html" %}
 <h2>Etusivu</h2>
 {% if session.username %}
 <p>{{ session.username }} kirjautunut sisään</p>
