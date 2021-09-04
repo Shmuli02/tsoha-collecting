@@ -1,3 +1,4 @@
+from typing import Tuple
 from flask.app import Flask
 from app import app
 
@@ -21,42 +22,67 @@ def index():
 
 @app.route("/admin")
 def admin_index():
-  try:
-    if session["username"] and session["admin"] == 1:
-      return render_template("admin_index.html")
-  except:
+  if users.is_admin():
+    return render_template("admin_index.html")
+  else:
+    flash({'code':1,'message':'Pääsy kielletty'})
     return redirect("/")
-  return redirect("/")
 
 @app.route("/admin/coin")
 def admin_coin():
-  try:
-    if session["username"] and session["admin"] == 1:
-      all_coins = coins.get_all_coins()
-      return render_template("admin_coin.html", all_coins=all_coins)
-  except:
+  if users.is_admin():
+    all_coins = coins.get_all_coins()
+    return render_template("admin_coin.html", all_coins=all_coins)
+  else:
+    flash({'code':1,'message':'Pääsy kielletty'})
     return redirect('/')
-  return redirect('/')
+
+@app.route("/admin/coin/<int:id>")
+def admin_coin_id(id):
+  if users.is_admin():
+    coin = coins.get_coin_by_id(id)
+    if coin is False:
+      flash({'code':1,'message':'Virheellinen kolikko id'})
+      return redirect('/')
+    else:
+      return render_template("admin_coin_id.html",coin=coin)
+  else:
+    flash({'code':1,'message':'Pääsy kielletty'})
+    return redirect('/')
 
 @app.route("/admin/collection")
 def admin_collection():
-  all_collections = coins.get_all_collections()
-  return render_template("admin_collection.html",all_collections=all_collections)
+  if users.is_admin():
+    all_collections = coins.get_all_collections()
+    return render_template("admin_collection.html",all_collections=all_collections)
+  else:
+    flash({'code':1,'message':'Pääsy kielletty'})
+    return redirect('/')
+
+@app.route("/admin/collection/<int:id>")
+def admin_collection_id(id):
+  if users.is_admin():
+    collection = coins.get_collection_by_id(id)
+    if collection is False:
+      return redirect('/')
+    else:
+      return render_template("admin_collection_id.html",collection=collection)
+  else:
+    flash({'code':1,'message':'Pääsy kielletty'})
+    redirect('/')
 
 @app.route("/coin")
 def coin():
   all_coins = coins.get_all_coins()
-  try:
-    if session["username"]:
-      user_id = users.get_userid_by_username(session["username"])
-      coins_user_own = coins.get_coins_user_own(user_id)
-      return render_template("coins.html", all_coins=all_coins,coins_user_own = coins_user_own)
-  except KeyError:
-    pass
-  return render_template("coins.html", all_coins=all_coins)
+  if users.login():
+    user_id = users.get_userid_by_username(session["username"])
+    coins_user_own = coins.get_coins_user_own(user_id)
+    return render_template("coins.html", all_coins=all_coins,coins_user_own = coins_user_own)
+  else:
+    return render_template("coins.html", all_coins=all_coins)
 
 @app.route("/coin/<int:id>")
-def admin_coin_id(id):
+def coin_id(id):
   coin = coins.get_coin_by_id(id)
   if coin is False:
     return redirect('/')
@@ -78,56 +104,48 @@ def collection():
 
 
 
-@app.route("/admin/collection/<int:id>")
-def admin_collection_id(id):
-  collection = coins.get_collection_by_id(id)
-  if collection is False:
-    return redirect('/')
-  else:
-    return render_template("admin_collection_id.html",collection=collection)
+
 
 @app.route("/new_coin", methods=["POST","GET"])
 def new_coin():
   if request.method == "GET":
-    try:
-      if session["username"] and session["admin"] == 1:
-        countries = coins.get_countries()
-        materials = coins.get_materials()
-        currencies = coins.get_currencies()
-        all_coins = coins.get_all_coins()
-        return render_template("admin_new_coin.html",countries=countries,materials=materials,currencies=currencies,all_coins=all_coins)
-    except:
+    if users.is_admin():
+      countries = coins.get_countries()
+      materials = coins.get_materials()
+      currencies = coins.get_currencies()
+      all_coins = coins.get_all_coins()
+      return render_template("admin_new_coin.html",countries=countries,materials=materials,currencies=currencies,all_coins=all_coins)
+    else:
       return redirect('/')
-    return redirect('/')
   if request.method == "POST":
     add_coin = True
-    try:
-      if session["username"] and session["admin"] == 1:
-        img_url = ''
-        ### Kuvien tallennus toimii paikallisesti, mutta ei herokussa. Joten syötteenä linkki kuvaan ###
+    if users.is_admin():
+      img_url = ''
+      ### Kuvien tallennus toimii paikallisesti, mutta ei herokussa. Joten syötteenä linkki kuvaan ###
 
-        
-        # if 'file' not in request.files:
-        #   pass
-        # file = request.files['file']
-        # if file.filename == '':
-        #   pass
-        # if file and allowed_file(file.filename):
-            # filename = secure_filename(file.filename)
-            # img_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            # file.save(img_url)
-            # img_url = img_url[1:] #remove the dot from the link
-        img_url = request.form["image_url"]
-        country = request.form["country"]
-        year = request.form["year"]
-        mintage = request.form["mintage"]
-        currency = request.form["currency"]
-        value = request.form["value"]
-        name = request.form["name"]
-        description = request.form["description"]
-        material = request.form["material"]
-        public = request.form["public"]
-    except:
+      
+      # if 'file' not in request.files:
+      #   pass
+      # file = request.files['file']
+      # if file.filename == '':
+      #   pass
+      # if file and allowed_file(file.filename):
+          # filename = secure_filename(file.filename)
+          # img_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+          # file.save(img_url)
+          # img_url = img_url[1:] #remove the dot from the link
+      img_url = request.form["image_url"]
+      country = request.form["country"]
+      year = request.form["year"]
+      mintage = request.form["mintage"]
+      currency = request.form["currency"]
+      value = request.form["value"]
+      name = request.form["name"]
+      description = request.form["description"]
+      material = request.form["material"]
+      public = request.form["public"]
+    else:
+      flash({'code':1,'message':'Pääsy kielletty'})
       return redirect('/')
 
     if country == '':
@@ -144,7 +162,7 @@ def new_coin():
       add_coin = False
     try:
       if int(value) < 0:
-        flash({'code':1,'message':'väärä arvo'})
+        flash({'code':1,'message':'Väärä arvo'})
         add_coin = False
     except:
       pass
@@ -169,24 +187,22 @@ def new_coin():
 @app.route("/new_collection", methods=["POST","GET"])
 def new_collection():
   if request.method == "GET":
-    try:
-      if session["username"] and session["admin"] == 1:
-        all_coins = coins.get_all_coins()
-        return render_template("admin_new_collection.html", all_coins=all_coins)
-    except:
+    if users.is_admin():
+      all_coins = coins.get_all_coins()
+      return render_template("admin_new_collection.html", all_coins=all_coins)
+    else:
       return redirect("/")
   if request.method == "POST":
     add_collection = True
-    try:
-      if session["username"] and session["admin"] == 1:
-        if 'coin-to-collection' in request.form:
-          collection_coins = request.form.to_dict(flat=False)['coin-to-collection']
-        else:
-          collection_coins = []
-        name = request.form["name"]
-        description = request.form["description"]
-        public = request.form["public"]
-    except:
+    if users.is_admin():
+      if 'coin-to-collection' in request.form:
+        collection_coins = request.form.to_dict(flat=False)['coin-to-collection']
+      else:
+        collection_coins = []
+      name = request.form["name"]
+      description = request.form["description"]
+      public = request.form["public"]
+    else:
       return redirect('/')
     if name == '' or len(name) >100:
       flash({'code':1,'message':'Virhe nimessä'})
