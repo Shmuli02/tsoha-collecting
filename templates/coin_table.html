@@ -148,7 +148,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
   <!-- <h1>{{ coin.name }}</h1> -->
   <p>{{ coin.value }} {{ coin.currency }}</p>
   <p>{{coin.country}} - {{ coin.year }}</p>
+  {% if url_for(request.endpoint) == '/coin' %}
   <p><a href="/coin/{{coin.id}}">Lue lisää</a></p>
+  {% else %}
+  <p><a href="/admin/coin/{{coin.id}}">Lue lisää</a></p>
+  {% endif %}
+  <!-- {{ url_for(request.endpoint) }} -->
   {% if session.username %}
   <button onclick="popupFormFunction('{{coin.name}}')" class="w3-button w3-xlarge w3-circle w3-teal" style="float: right;">+</button>
   

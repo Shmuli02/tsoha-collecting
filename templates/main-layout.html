@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<title>{% block title %}{% endblock %}</title>
 <head>
 <style>
 body {
@@ -42,7 +43,7 @@ li a:hover:not(.active) {
 <body>
 
 <ul>
-  <li><a class="active" href="/">Home</a></li>
+  <li><a class="active" href="/">Etusivu</a></li>
   <li><a href="/coin">Kolikot</a></li>
   <li><a href="/collection">Kokoelmat</a></li>
   {% if session.username %}
