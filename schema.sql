@@ -47,18 +47,13 @@ CREATE TABLE coin_data (
   image_url TEXT
 );
 
-CREATE TABLE user_user_own (
+CREATE TABLE coin_user_own (
   id SERIAL PRIMARY KEY,
   coin_id INTEGER REFERENCES coin_data,
   amount INTEGER,
   user_id INTEGER REFERENCES users
 );
 
-CREATE TABLE user_coin_wishlist (
-  id SERIAL PRIMARY KEY,
-  coin_id INTEGER REFERENCES coin_data,
-  user_id INTEGER REFERENCES users
-);
 
 INSERT INTO country (country) VALUES ('Alankomaat'),('Albania'),('Andorra'),
 ('Armenia'),('Azerbaidžan'),('Belgia'),('Bulgaria'),('Espanja'),('Georgia'),
