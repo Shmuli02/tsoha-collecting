@@ -1,0 +1,60 @@
+{% extends "main-layout.html" %}
+{% block content %}
+<h1>Kokoelmat</h1>
+<style>
+  * {
+  box-sizing: border-box;
+}
+  .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 200px;
+  margin: 10px;
+  text-align: left;
+  font-family: arial;
+  display: table;
+  padding: 10px;
+  float: left;
+}
+
+.price {
+  color: grey;
+  font-size: 16px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* .card button {
+  border: none;
+  outline: 0;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+} */
+
+/* .card button:hover {
+  opacity: 0.7;
+} */
+div {
+  display: table;
+}
+
+</style>
+<div class="table">
+{% for collection in all_collections %}
+
+<div class="card">
+  <h1>{{ collection.name }}</h1>
+  <p><a href="/collection/{{collection.id}}">Lue lisää</a></p>
+</div>
+
+{% endfor %}
+</div>
+{% endblock %}
