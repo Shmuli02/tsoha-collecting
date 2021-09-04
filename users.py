@@ -42,3 +42,21 @@ def get_userid_by_username(username):
   result = db.session.execute(sql,{"username":username})
   user = result.fetchall()
   return user[0][0]
+
+def is_admin():
+  try:
+    if session["username"] and session["admin"] == 1:
+      return True
+    else:
+      return False
+  except:
+    return False
+
+def is_login():
+  try:
+    if session["username"]:
+      return True
+    else:
+      return False
+  except:
+    return False
