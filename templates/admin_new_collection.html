@@ -17,6 +17,7 @@
     background-color: #dddddd;
   }
 </style>
+{% include "error.html" %}
 <br>
 <form action="/new_collection" method="POST" enctype=multipart/form-data>
   Nimi: <input type="text" name="name" /><br>
@@ -45,8 +46,6 @@
     </tr>
     {% endfor %}
   </table>
-  <br>
-  Kuva: <input type=file name=file>
   <input type="submit" value="lisää" />
 </form>
 {% endblock %}

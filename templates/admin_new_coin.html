@@ -1,28 +1,33 @@
 {% extends "admin-layout.html" %}
 {% block content %}
 <br>
+{% include "error.html" %}
+<br>
 <form action="/new_coin" method="POST" enctype=multipart/form-data>
-  Maa: <select name="country">
+  Maa*: <select name="country">
+    <option></option>
     {% for country in countries %}
     <option value={{country.id}}>{{country.country}}</option>
     {% endfor %}
   </select><br>
-  Vuosi: <select id="year" name="year">
-    <option>Vuosi</option>
+  Vuosi*: <select id="year" name="year">
+    <option></option>
     {% for vuosi in range(1940,2031) %}
     <option value={{vuosi}}>{{vuosi}}</option>
     {% endfor %}
 </select><br>
-  Valuutta: <select name="currency">
+  Valuutta*: <select name="currency">
+    <option></option>
     {% for currency in currencies %}
 
     <option value={{currency.id}}>{{currency.currency}}</option>
     {% endfor %}
   </select><br>
-  arvo: <input type="text" name="value" /><br>
-  Kolikon nimi: <input type="text" name="name" /><br>
-  Kuvaus: <input type="text" name="description" /><br>
-  materiaali: <select name="material">
+  arvo*: <input type="text" name="value" /><br>
+  Kolikon nimi*: <input type="text" name="name" /><br>
+  Kuvaus*: <input type="text" name="description" /><br>
+  materiaali*: <select name="material">
+    <option></option>
     {% for material in materials %}
     <option value={{material.id}}>{{material.material}}</option>
     {% endfor %}

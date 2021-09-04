@@ -68,7 +68,7 @@ tr:nth-child(even) {
         <th>Arvo</th>
         <th>Maa</th>
       </tr>
-      {% for coin in collection.coins %}
+      {% for coin in collection.all_collection_coins %}
       <tr>
         <td>{{coin.name}}</td>
         <td>{{coin.value}} {{coin.currency}}</td>

@@ -1,9 +1,47 @@
 {% extends "main-layout.html" %}
 {% block content %}
+{% include "error.html" %}
 {% include "coin_table.html" %}
+
 {% block user_content %}
 {% if session.username %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
 <h2>Omat kolikot</h2>
+<table>
+  <tr>
+    <th>Nimi</th>
+    <th>Arvo</th>
+    <th>Maa</th>
+    <th>Vuosi</th>
+    <th>Määrä</th>
+  </tr>
+  {% for own_coin in coins_user_own %}
+  <tr>
+    <td>{{own_coin.name}}</td>
+    <td>{{own_coin.value}} {{own_coin.currency}}</td>
+    <td>{{own_coin.country}}</td>
+    <td>{{own_coin.year}}</td>
+    <td>{{own_coin.amount}}</td>
+  </tr>
+  
+  {% endfor %}
+</table>
 {% endif %}
 {% endblock %}
 {% endblock %}

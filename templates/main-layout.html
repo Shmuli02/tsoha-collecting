@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <head>
 <style>
+body {
+  background-image: url();
+  height: 100%;
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -35,7 +44,7 @@ li a:hover:not(.active) {
 <ul>
   <li><a class="active" href="/">Home</a></li>
   <li><a href="/coin">Kolikot</a></li>
-  <li><a href="#Kokoelmat">Kokoelmat</a></li>
+  <li><a href="/collection">Kokoelmat</a></li>
   {% if session.username %}
   <li><a href="/logout">Kirjaudu ulos</a></li>
   {% else %}
