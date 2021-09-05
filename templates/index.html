@@ -2,8 +2,15 @@
 {% block title %}Etusivu{% endblock %}
 {% block content %}
 {% include "error.html" %}
-<h2>Etusivu</h2>
-{% if session.username %}
-<p>{{ session.username }} kirjautunut sisään</p>
-{% endif %}
+<h1>Kolikoiden keräys sovellus</h1>
+
+
+<h3>Sivuston ominaisuudet</h3>
+<li>Selaa kolikoita</li><br>
+<li>Jokaisesta kolikosta on saatavailla lisätietoja kolikon 'Lue lisää' kohdasta</li><br>
+<li>Lisää kolikoita omaan kokoelmaan</li><br>
+<li>Näe omat kolikot</li><br>
+<li>Selaa kokoelmia</li><br>
+<li>Näet kuinka monta kolikkoa olet kerännyt kokoelman kolikoista ja kuinka monta puuttuu</li><br>
+
 {% endblock %}

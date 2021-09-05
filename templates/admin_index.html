@@ -3,5 +3,14 @@
 {% block title %}Etusivu{% endblock %}
 {% block content %}
 <h1>Admin etusivu</h1>
+
+<p>Tervetuoa hallintasivulle {{session.username}}</p>
+<p>Täällä pystyt halitsemaan sivuston tietoja</p><br>
+
+<p>Pudotusvalikosta "Lisää" löytyy linkki uuden kolikon ja uuden kokoelman lisäämiseen</p>
+<p>Kolikot välilehdeltä löytyy kaikki kolikot</p>
+<p>Ja kaikki kokoelmat löytyvät kokoelmat sivulta</p><br>
+
+<p>Pääset takaisin käyttäjien sivu painamalla oikeassa yläkulmassa nappia "Takaisin pääsivulle"</p>
 {% include "error.html" %}
 {% endblock %}
