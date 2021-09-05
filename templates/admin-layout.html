@@ -103,20 +103,33 @@ div {
 </style>
 </head>
 <body>
+{% set navigation_bar = [
+    ('/admin/coin','admin_coin','Kolikot'),
+    ('/admin/collection', 'admin_collection', 'Kokoelmat')
+] -%}
+
+{% set active_page = active_page|default('admin-index') -%}
 
 <ul class="navbar">
-  <li><a class="active" href="/admin">Home</a></li>
-  
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">Lisää</a>
-    <div class="dropdown-content">
-      <a href="/new_coin">Kolikko</a>
-      <a href="/new_collection">Kokoelma</a>
-    </div>
-  </li>
-  <li><a href="/admin/coin">Kolikot</a></li>
-  <li><a href="/admin/collection">Kokoelmat</a></li>
-  {% if session.username %}
+  <li{% if active_page == 'admin_index' %} class="active"{% endif
+    %}><a href="/admin">Etusivu</a>
+    </li>
+    <li {% if ((active_page == 'new_coin') or (active_page == 'new_collection')) %} class="dropdown active"{% endif %} class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Lisää</a>
+      <div class="dropdown-content">
+        <a href="/new_coin">Kolikko</a>
+        <a href="/new_collection">Kokoelma</a>
+      </div>
+    </li>
+
+    {% for href, id, caption in navigation_bar %}
+    <li{% if id == active_page %} class="active"{% endif
+    %}><a href="{{ href|e }}">{{ caption|e }}</a>
+    </li>
+    {% endfor %}
+
+
+{% if session.username %}
   <li><a href="/logout">Kirjaudu ulos</a></li>
   {% else %}
   <li><a href="/login">Kirjaudu sisään</a></li>
@@ -125,5 +138,6 @@ div {
   <li style="float:right"><a href="/">Takaisin pääsivulle</a></li>
   {% endif %}
 </ul>
+
 {% block content %}{% endblock %}
 </body>

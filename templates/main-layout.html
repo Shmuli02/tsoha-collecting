@@ -42,11 +42,21 @@ li a:hover:not(.active) {
 </head>
 <body>
 
-<ul>
-  <li><a class="active" href="/">Etusivu</a></li>
-  <li><a href="/coin">Kolikot</a></li>
-  <li><a href="/collection">Kokoelmat</a></li>
-  {% if session.username %}
+{% set navigation_bar = [
+    ('/', 'index', 'Etusivu'),
+    ('/coin', 'coin', 'Kolikot'),
+    ('/collection', 'collection', 'Kokoelmat'),
+] -%}
+
+{% set active_page = active_page|default('index') -%}
+
+<ul id="navigation">
+    {% for href, id, caption in navigation_bar %}
+    <li{% if id == active_page %} class="active"{% endif
+    %}><a href="{{ href|e }}">{{ caption|e }}</a>
+    </li>
+{% endfor %}
+{% if session.username %}
   <li><a href="/logout">Kirjaudu ulos</a></li>
   {% else %}
   <li><a href="/login">Kirjaudu sisään</a></li>
@@ -56,4 +66,3 @@ li a:hover:not(.active) {
   {% endif %}
 </ul>
 {% block content %}{% endblock %}
-</body>
