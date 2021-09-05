@@ -74,7 +74,7 @@ def admin_collection_id(id):
 @app.route("/coin")
 def coin():
   all_coins = coins.get_all_coins()
-  if users.login():
+  if users.is_login():
     user_id = users.get_userid_by_username(session["username"])
     coins_user_own = coins.get_coins_user_own(user_id)
     return render_template("coins.html", all_coins=all_coins,coins_user_own = coins_user_own)
@@ -266,6 +266,10 @@ def login():
 @app.route("/logout")
 def logout():
   del session["username"]
+  try:
+    del session["admin"]
+  except:
+    pass
   return redirect("/")
 
 @app.route("/register", methods=["POST","GET"])
